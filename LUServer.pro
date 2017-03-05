@@ -43,6 +43,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 include($$TMPPWD/QtRakNet/qtraknet.pri)
 
+TMPPWD = $$replace(PWD," ","_")
+
 LIBS += -L$$LIB_DIR -lws2_32
 CONFIG(debug, debug|release){
     LIBS += -lQtRakNet_d -lConsoleThread_d
