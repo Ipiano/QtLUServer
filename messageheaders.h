@@ -1,0 +1,15 @@
+#ifndef MESSAGEHEADERS_H
+#define MESSAGEHEADERS_H
+
+namespace HEADERS
+{
+
+enum ALL : unsigned int
+{
+    VERSION_CONFIRM     = 0x53000000,
+    DISCONNECT_NOTIFY   = 0x53000001,
+    GENERAL_NOTIFY      = 0x53000002
+};
+
+}
+#endif // MESSAGEHEADERS_H
