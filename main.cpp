@@ -9,26 +9,32 @@
 #include "MessageHandlers/luauthserverhandler.h"
 #include "luserver.h"
 #include "logger.h"
-
-constexpr unsigned int AUTH_PORT = 1001;
+#include "GameLogic/gamelogic.h"
 
 int main(int argc, char *argv[])
 {
-    LOG_STREAM = new QTextStream(stdout);
-    CURRENT_LOG_LEVEL = LOG_LEVEL::TRACE;
+    QTextStream* logger = new QTextStream(stdout);
+    CURRENT_LOG_LEVEL = LOG_LEVEL::DEBUG;
 
     QCoreApplication app(argc, argv);
 
     DataBroker::setSharedInstance(new FileBroker(&app));
+    DATABROKER->setLogger(logger);
+    GAMELOGIC->setLogger(logger);
 
-    unsigned int worldPort = 2000, charPort = 2001;
-    LUServer authServer("3.25 ND1", new LUAuthServerHandler(worldPort, charPort), &app);
-    LUServer gameServer("3.25 ND1", new LUGameServerHandler(), &app);
+    LUServer authServer("3.25 ND1", new LUAuthServerHandler(DATABROKER->authServerName(), logger), logger, &app);
+    LUServer gameServer("3.25 ND1", new LUGameServerHandler("GAME", logger), logger, &app);
 
-    INFO("Starting authentication server...");
-    if(!authServer.startup(AUTH_PORT, 10, 3))
+    INFO(logger, "Starting authentication server...");
+    if(!authServer.startup(DATABROKER->authServerPort(), 10, 3))
     {
-        WARN("Unable to start authentication server, exiting...");
+        WARN(logger, "Unable to start authentication server, exiting...");
+        exit(1);
+    }
+
+    if(!gameServer.startup(DATABROKER->worldServerPort(), 10, 3))
+    {
+        WARN(logger, "Unable to start world server, exiting...");
         exit(1);
     }
 
@@ -42,8 +48,16 @@ int main(int argc, char *argv[])
             QTimer::singleShot(1, &app, &QCoreApplication::quit);
             serverIn.stop();
         }
-
     });
 
-    return app.exec();
+    int out = app.exec();
+
+    authServer.shutdown(1000);
+    gameServer.shutdown(1000);
+
+    delete logger;
+    delete DATABROKER;
+    delete GAMELOGIC;
+
+    return out;
 }

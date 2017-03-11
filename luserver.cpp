@@ -1,7 +1,9 @@
 #include "luserver.h"
 
-LUServer::LUServer(QString pass, RakMessageHandler* handler, QObject *parent) : QObject(parent)
+LUServer::LUServer(QString pass, RakMessageHandler* handler, QTextStream *logger, QObject *parent) : QObject(parent)
 {
+    _logger = logger;
+
     handler->setParent(this);
     _handler = handler;
 
@@ -12,7 +14,7 @@ LUServer::LUServer(QString pass, RakMessageHandler* handler, QObject *parent) : 
     connect(_handler, &RakMessageHandler::sendMessage,
     [this](QByteArray data, SystemAddress address)
     {
-        _peer->Send(data, SYSTEM_PRIORITY, RELIABLE_ORDERED, 0, address, true);
+        _peer->Send(data, SYSTEM_PRIORITY, RELIABLE_ORDERED, 0, address, false);
     });
 }
 
@@ -29,7 +31,7 @@ bool LUServer::startup(unsigned int port, int maxConnections, int maxIncoming)
     _peer->SetMaximumIncomingConnections(maxIncoming);
 
     if(good)
-        qInfo() << "Server started at " << _peer->GetLocalIP(0) << ":" << port;
+        INFO(_logger, "Server started at " << _peer->GetLocalIP(0) << ":" << port);
 
     return good;
 }

@@ -12,9 +12,10 @@ class LUServer : QObject
 
     QtRakPeer* _peer;
     RakMessageHandler* _handler;
+    QTextStream* _logger;
 
 public:
-    LUServer(QString pass, RakMessageHandler* handler, QObject* parent=nullptr);
+    LUServer(QString pass, RakMessageHandler* handler, QTextStream* logger = nullptr, QObject* parent=nullptr);
     ~LUServer();
 
     bool startup(unsigned int port, int maxConnections, int maxIncoming);

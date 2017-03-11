@@ -1,4 +1,4 @@
-QT += core
+QT += core network
 QT -= gui
 
 CONFIG += c++11
@@ -19,7 +19,11 @@ HEADERS += \
     MessageHandlers/lugameserverhandler.h \
     luserver.h \
     logger.h \
-    messageheaders.h
+    messageheaders.h \
+    useraccounts.h \
+    sha512.hh \
+    bytestream.h \
+    GameLogic/gamelogic.h
 
 SOURCES += main.cpp \
     DataBrokers/databroker.cpp \
@@ -28,7 +32,8 @@ SOURCES += main.cpp \
     MessageHandlers/luauthserverhandler.cpp \
     MessageHandlers/lugameserverhandler.cpp \
     luserver.cpp \
-    logger.cpp
+    logger.cpp \
+    GameLogic/gamelogic.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings

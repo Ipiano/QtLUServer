@@ -2,21 +2,23 @@
 #define LUAUTHSERVERHANDLER_H
 
 #include "rakmessagehandler.h"
+#include "messageheaders.h"
+#include "bytestream.h"
+
+#include <QString>
 
 class LUAuthServerHandler : public RakMessageHandler
 {
     Q_OBJECT
 
-    unsigned int _world;
-    unsigned int _char;
+    HEADERHANDLER(LOGIN_NOTIFY);
+
+    void writeAllExtraData(ByteStream& stream);
+    void writeExtraData(quint32 stampId, qint32 bracketNum, quint32 afterNum, ByteStream& stream);
 
 public:
-    QString serverName(){return "AUTH";}
-    LUAuthServerHandler(unsigned int worldPort, unsigned int charPort, QObject* parent=nullptr);
+    LUAuthServerHandler(QString serverName, QTextStream *logger=nullptr, QObject* parent=nullptr);
 
-public slots:
-    virtual void receiveRAKMessage(unsigned int header, SystemIndex sysInd, SystemAddress sysAddr, QByteArray& data);
-    virtual void receiveLUMessage(unsigned int header, SystemIndex sysInd, SystemAddress sysAddr, QByteArray& data);
 };
 
 #endif // LUAUTHSERVERHANDLER_H

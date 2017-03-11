@@ -11,13 +11,13 @@ MAKEFILE      = Makefile.Release
 
 CC            = cl
 CXX           = cl
-DEFINES       = -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_NO_DEBUG -DQT_CORE_LIB -DNDEBUG
+DEFINES       = -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_CORE_LIB -DNDEBUG
 CFLAGS        = -nologo -Zc:wchar_t -FS -Zc:strictStrings -O2 -MD -W3 -w44456 -w44457 -w44458 $(DEFINES)
 CXXFLAGS      = -nologo -Zc:wchar_t -FS -Zc:strictStrings -Zc:throwingNew -O2 -MD -GR -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -EHsc $(DEFINES)
-INCPATH       = -IC:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer -IC:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet -IC:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25 -IC:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\ConsoleThread -IC:\Qt\5.7\msvc2015_64\include -IC:\Qt\5.7\msvc2015_64\include\QtCore -IC:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\release -IC:\Qt\5.7\msvc2015_64\mkspecs\win32-msvc2015 
+INCPATH       = -IC:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt -IC:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet -IC:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25 -IC:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\ConsoleThread -IC:\Qt\5.7\msvc2015_64\include -IC:\Qt\5.7\msvc2015_64\include\QtNetwork -IC:\Qt\5.7\msvc2015_64\include\QtCore -IC:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\release -IC:\Qt\5.7\msvc2015_64\mkspecs\win32-msvc2015 
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /SUBSYSTEM:CONSOLE "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
-LIBS          = /LIBPATH:C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\lib\release ws2_32.lib QtRakNet.lib ConsoleThread.lib /LIBPATH:C:\Qt\5.7\msvc2015_64\lib C:\Qt\5.7\msvc2015_64\lib\Qt5Core.lib 
+LIBS          = /LIBPATH:C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\lib\release ws2_32.lib C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\lib\release\QtRakNet.lib C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\lib\release\ConsoleThread.lib /LIBPATH:C:\Qt\5.7\msvc2015_64\lib C:\Qt\5.7\msvc2015_64\lib\Qt5Network.lib C:\Qt\5.7\msvc2015_64\lib\Qt5Core.lib 
 QMAKE         = C:\Qt\5.7\msvc2015_64\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -50,12 +50,14 @@ SOURCES       = main.cpp \
 		MessageHandlers\luauthserverhandler.cpp \
 		MessageHandlers\lugameserverhandler.cpp \
 		luserver.cpp \
-		logger.cpp release\moc_databroker.cpp \
+		logger.cpp \
+		GameLogic\gamelogic.cpp release\moc_databroker.cpp \
 		release\moc_filebroker.cpp \
 		release\moc_rakmessagehandler.cpp \
 		release\moc_luauthserverhandler.cpp \
 		release\moc_lugameserverhandler.cpp \
-		release\moc_luserver.cpp
+		release\moc_luserver.cpp \
+		release\moc_gamelogic.cpp
 OBJECTS       = release\main.obj \
 		release\databroker.obj \
 		release\filebroker.obj \
@@ -64,12 +66,14 @@ OBJECTS       = release\main.obj \
 		release\lugameserverhandler.obj \
 		release\luserver.obj \
 		release\logger.obj \
+		release\gamelogic.obj \
 		release\moc_databroker.obj \
 		release\moc_filebroker.obj \
 		release\moc_rakmessagehandler.obj \
 		release\moc_luauthserverhandler.obj \
 		release\moc_lugameserverhandler.obj \
-		release\moc_luserver.obj
+		release\moc_luserver.obj \
+		release\moc_gamelogic.obj
 
 DIST          =  DataBrokers\databroker.h \
 		DataBrokers\filebroker.h \
@@ -78,18 +82,23 @@ DIST          =  DataBrokers\databroker.h \
 		MessageHandlers\lugameserverhandler.h \
 		luserver.h \
 		logger.h \
-		messageheaders.h main.cpp \
+		messageheaders.h \
+		useraccounts.h \
+		sha512.hh \
+		bytestream.h \
+		GameLogic\gamelogic.h main.cpp \
 		DataBrokers\databroker.cpp \
 		DataBrokers\filebroker.cpp \
 		MessageHandlers\rakmessagehandler.cpp \
 		MessageHandlers\luauthserverhandler.cpp \
 		MessageHandlers\lugameserverhandler.cpp \
 		luserver.cpp \
-		logger.cpp
+		logger.cpp \
+		GameLogic\gamelogic.cpp
 QMAKE_TARGET  = LUServer
-DESTDIR        = C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\release\ #avoid trailing-slash linebreak
+DESTDIR        = C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\release\ #avoid trailing-slash linebreak
 TARGET         = LUServer.exe
-DESTDIR_TARGET = C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\release\LUServer.exe
+DESTDIR_TARGET = C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\release\LUServer.exe
 
 ####### Implicit rules
 
@@ -175,10 +184,30 @@ DESTDIR_TARGET = C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\Q
 	$<
 <<
 
+{GameLogic}.cpp{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{GameLogic}.cc{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{GameLogic}.cxx{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{GameLogic}.c{release\}.obj::
+	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
 ####### Build rules
 
 first: all
-all: C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\Makefile.Release  $(DESTDIR_TARGET)
+all: C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\Makefile.Release  $(DESTDIR_TARGET)
 
 $(DESTDIR_TARGET):  $(OBJECTS) 
 	$(LINKER) $(LFLAGS) /MANIFEST:embed /OUT:$(DESTDIR_TARGET) @<<
@@ -186,21 +215,21 @@ $(OBJECTS) $(LIBS)
 <<
 
 qmake: FORCE
-	@$(QMAKE) -spec win32-msvc2015 "CONFIG+=debug" "CONFIG+=qml_debug" -o C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\Makefile.Release LUServer.pro
+	@$(QMAKE) -spec win32-msvc2015 -o C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\Makefile.Release LUServer.pro
 
 qmake_all: FORCE
 
 dist:
-	$(ZIP) LUServer.zip $(SOURCES) $(DIST) C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\LUServer.pro C:\Qt\5.7\msvc2015_64\mkspecs\features\spec_pre.prf C:\Qt\5.7\msvc2015_64\mkspecs\common\angle.conf C:\Qt\5.7\msvc2015_64\mkspecs\common\msvc-base.conf C:\Qt\5.7\msvc2015_64\mkspecs\common\msvc-desktop.conf C:\Qt\5.7\msvc2015_64\mkspecs\qconfig.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dcore.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dcore_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dextras.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dextras_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dinput.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dinput_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dlogic.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dlogic_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquick.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquick_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquickextras.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquickextras_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquickinput.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquickinput_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquickrender.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquickrender_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3drender.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3drender_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_axbase.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_axbase_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_axcontainer.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_axcontainer_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_axserver.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_axserver_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_bluetooth.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_bluetooth_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_bootstrap_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_clucene_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_concurrent.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_concurrent_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_core.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_core_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_dbus.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_dbus_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_designer.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_designer_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_gamepad.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_gamepad_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_gui.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_gui_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_help.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_help_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_location.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_location_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_multimedia.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_multimedia_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_multimediawidgets.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_network.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_network_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_nfc.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_nfc_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_opengl.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_opengl_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_openglextensions.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_openglextensions_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_packetprotocol_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_platformsupport_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_positioning.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_positioning_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_printsupport.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_printsupport_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_qml.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_qml_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_qmldebug_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_qmldevtools_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_qmltest.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_qmltest_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_quick.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_quick_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_quickcontrols2.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_quickwidgets.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_script.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_script_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_scripttools.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_scripttools_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_scxml.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_scxml_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_sensors.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_sensors_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_serialport.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_serialport_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_sql.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_sql_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_svg.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_svg_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_testlib.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_testlib_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_uiplugin.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_uitools.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_uitools_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webchannel.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webchannel_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webengine.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webengine_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webenginecore.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webenginecore_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webenginecoreheaders_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webenginewidgets.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webenginewidgets_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_websockets.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_websockets_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webview.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webview_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_widgets.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_widgets_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_winextras.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_winextras_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_xml.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_xml_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_xmlpatterns.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_zlib_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\features\qt_functions.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\qt_config.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\win32\qt_config.prf C:\Qt\5.7\msvc2015_64\mkspecs\win32-msvc2015\qmake.conf C:\Qt\5.7\msvc2015_64\mkspecs\features\spec_post.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\exclusive_builds.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\toolchain.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\default_pre.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\win32\default_pre.prf C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\qtraknet.pri C:\Qt\5.7\msvc2015_64\mkspecs\features\resolve_config.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\exclusive_builds_post.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\default_post.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\build_pass.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\win32\console.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\qml_debug.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\win32\rtti.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\precompile_header.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\warn_on.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\qt.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\resources.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\moc.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\file_copies.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\testcase_targets.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\exceptions.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\yacc.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\lex.prf C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\LUServer.pro C:\Qt\5.7\msvc2015_64\lib\Qt5Core.prl  NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES YACCSOURCES YACCSOURCES LEXSOURCES 
+	$(ZIP) LUServer.zip $(SOURCES) $(DIST) C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\LUServer.pro C:\Qt\5.7\msvc2015_64\mkspecs\features\spec_pre.prf C:\Qt\5.7\msvc2015_64\mkspecs\common\angle.conf C:\Qt\5.7\msvc2015_64\mkspecs\common\msvc-base.conf C:\Qt\5.7\msvc2015_64\mkspecs\common\msvc-desktop.conf C:\Qt\5.7\msvc2015_64\mkspecs\qconfig.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dcore.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dcore_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dextras.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dextras_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dinput.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dinput_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dlogic.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dlogic_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquick.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquick_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquickextras.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquickextras_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquickinput.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquickinput_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquickrender.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3dquickrender_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3drender.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_3drender_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_axbase.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_axbase_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_axcontainer.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_axcontainer_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_axserver.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_axserver_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_bluetooth.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_bluetooth_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_bootstrap_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_clucene_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_concurrent.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_concurrent_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_core.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_core_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_dbus.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_dbus_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_designer.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_designer_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_gamepad.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_gamepad_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_gui.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_gui_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_help.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_help_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_location.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_location_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_multimedia.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_multimedia_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_multimediawidgets.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_network.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_network_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_nfc.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_nfc_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_opengl.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_opengl_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_openglextensions.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_openglextensions_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_packetprotocol_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_platformsupport_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_positioning.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_positioning_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_printsupport.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_printsupport_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_qml.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_qml_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_qmldebug_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_qmldevtools_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_qmltest.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_qmltest_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_quick.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_quick_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_quickcontrols2.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_quickwidgets.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_script.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_script_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_scripttools.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_scripttools_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_scxml.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_scxml_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_sensors.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_sensors_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_serialport.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_serialport_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_sql.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_sql_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_svg.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_svg_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_testlib.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_testlib_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_uiplugin.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_uitools.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_uitools_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webchannel.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webchannel_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webengine.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webengine_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webenginecore.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webenginecore_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webenginecoreheaders_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webenginewidgets.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webenginewidgets_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_websockets.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_websockets_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webview.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_webview_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_widgets.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_widgets_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_winextras.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_winextras_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_xml.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_xml_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_xmlpatterns.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\modules\qt_lib_zlib_private.pri C:\Qt\5.7\msvc2015_64\mkspecs\features\qt_functions.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\qt_config.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\win32\qt_config.prf C:\Qt\5.7\msvc2015_64\mkspecs\win32-msvc2015\qmake.conf C:\Qt\5.7\msvc2015_64\mkspecs\features\spec_post.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\exclusive_builds.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\toolchain.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\default_pre.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\win32\default_pre.prf C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\qtraknet.pri C:\Qt\5.7\msvc2015_64\mkspecs\features\resolve_config.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\exclusive_builds_post.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\default_post.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\build_pass.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\win32\console.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\win32\rtti.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\precompile_header.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\warn_on.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\qt.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\resources.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\moc.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\file_copies.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\testcase_targets.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\exceptions.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\yacc.prf C:\Qt\5.7\msvc2015_64\mkspecs\features\lex.prf C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\LUServer.pro C:\Qt\5.7\msvc2015_64\lib\Qt5Network.prl C:\Qt\5.7\msvc2015_64\lib\Qt5Core.prl  NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\main.obj release\databroker.obj release\filebroker.obj release\rakmessagehandler.obj release\luauthserverhandler.obj release\lugameserverhandler.obj release\luserver.obj release\logger.obj release\moc_databroker.obj release\moc_filebroker.obj release\moc_rakmessagehandler.obj release\moc_luauthserverhandler.obj release\moc_lugameserverhandler.obj release\moc_luserver.obj
-	-$(DEL_FILE) C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\release\LUServer.exp
+	-$(DEL_FILE) release\main.obj release\databroker.obj release\filebroker.obj release\rakmessagehandler.obj release\luauthserverhandler.obj release\lugameserverhandler.obj release\luserver.obj release\logger.obj release\gamelogic.obj release\moc_databroker.obj release\moc_filebroker.obj release\moc_rakmessagehandler.obj release\moc_luauthserverhandler.obj release\moc_lugameserverhandler.obj release\moc_luserver.obj release\moc_gamelogic.obj
+	-$(DEL_FILE) C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\release\LUServer.exp
 
 distclean: clean 
-	-$(DEL_FILE) C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\release\LUServer.lib
+	-$(DEL_FILE) C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\release\LUServer.lib
 	-$(DEL_FILE) $(DESTDIR_TARGET)
-	-$(DEL_FILE) C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\Makefile.Release
+	-$(DEL_FILE) C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\Makefile.Release
 
 mocclean: compiler_moc_header_clean compiler_moc_source_clean
 
@@ -214,9 +243,9 @@ compiler_no_pch_compiler_make_all:
 compiler_no_pch_compiler_clean:
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: release\moc_databroker.cpp release\moc_filebroker.cpp release\moc_rakmessagehandler.cpp release\moc_luauthserverhandler.cpp release\moc_lugameserverhandler.cpp release\moc_luserver.cpp
+compiler_moc_header_make_all: release\moc_databroker.cpp release\moc_filebroker.cpp release\moc_rakmessagehandler.cpp release\moc_luauthserverhandler.cpp release\moc_lugameserverhandler.cpp release\moc_luserver.cpp release\moc_gamelogic.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) release\moc_databroker.cpp release\moc_filebroker.cpp release\moc_rakmessagehandler.cpp release\moc_luauthserverhandler.cpp release\moc_lugameserverhandler.cpp release\moc_luserver.cpp
+	-$(DEL_FILE) release\moc_databroker.cpp release\moc_filebroker.cpp release\moc_rakmessagehandler.cpp release\moc_luauthserverhandler.cpp release\moc_lugameserverhandler.cpp release\moc_luserver.cpp release\moc_gamelogic.cpp
 release\moc_databroker.cpp: C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs.h \
@@ -265,11 +294,30 @@ release\moc_databroker.cpp: C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qvarlengtharray.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontainerfwd.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject_impl.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QtGlobal \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\QHostAddress \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\qhostaddress.h \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\qabstractsocket.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qiodevice.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qdebug.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qhash.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qmap.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qtextstream.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qlocale.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qvariant.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qshareddata.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qvector.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qpoint.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qset.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontiguouscache.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsharedpointer.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsharedpointer_impl.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\useraccounts.h \
 		DataBrokers\databroker.h \
 		C:\Qt\5.7\msvc2015_64\bin\moc.exe
-	C:\Qt\5.7\msvc2015_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2015_64/mkspecs/win32-msvc2015 -I"C:/Users/Andrew Stelter/Documents/Code/Side-Projects/LUServer" -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/LUServer/QtRakNet -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/LUServer/QtRakNet/RakNet3.25 -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/LUServer/QtRakNet/ConsoleThread -IC:/Qt/5.7/msvc2015_64/include -IC:/Qt/5.7/msvc2015_64/include/QtCore -I. DataBrokers\databroker.h -o release\moc_databroker.cpp
+	C:\Qt\5.7\msvc2015_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2015_64/mkspecs/win32-msvc2015 -I"C:/Users/Andrew Stelter/Documents/Code/Side-Projects/NexusQt" -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet/RakNet3.25 -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet/ConsoleThread -IC:/Qt/5.7/msvc2015_64/include -IC:/Qt/5.7/msvc2015_64/include/QtNetwork -IC:/Qt/5.7/msvc2015_64/include/QtCore -I. DataBrokers\databroker.h -o release\moc_databroker.cpp
 
-release\moc_filebroker.cpp: C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\DataBrokers\databroker.h \
+release\moc_filebroker.cpp: C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\DataBrokers\databroker.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs.h \
@@ -318,9 +366,28 @@ release\moc_filebroker.cpp: C:\Users\Andrew_Stelter\Documents\Code\Side-Projects
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qvarlengtharray.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontainerfwd.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject_impl.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QtGlobal \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\QHostAddress \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\qhostaddress.h \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\qabstractsocket.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qiodevice.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qdebug.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qhash.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qmap.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qtextstream.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qlocale.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qvariant.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qshareddata.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qvector.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qpoint.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qset.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontiguouscache.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsharedpointer.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsharedpointer_impl.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\useraccounts.h \
 		DataBrokers\filebroker.h \
 		C:\Qt\5.7\msvc2015_64\bin\moc.exe
-	C:\Qt\5.7\msvc2015_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2015_64/mkspecs/win32-msvc2015 -I"C:/Users/Andrew Stelter/Documents/Code/Side-Projects/LUServer" -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/LUServer/QtRakNet -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/LUServer/QtRakNet/RakNet3.25 -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/LUServer/QtRakNet/ConsoleThread -IC:/Qt/5.7/msvc2015_64/include -IC:/Qt/5.7/msvc2015_64/include/QtCore -I. DataBrokers\filebroker.h -o release\moc_filebroker.cpp
+	C:\Qt\5.7\msvc2015_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2015_64/mkspecs/win32-msvc2015 -I"C:/Users/Andrew Stelter/Documents/Code/Side-Projects/NexusQt" -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet/RakNet3.25 -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet/ConsoleThread -IC:/Qt/5.7/msvc2015_64/include -IC:/Qt/5.7/msvc2015_64/include/QtNetwork -IC:/Qt/5.7/msvc2015_64/include/QtCore -I. DataBrokers\filebroker.h -o release\moc_filebroker.cpp
 
 release\moc_rakmessagehandler.cpp: C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject.h \
@@ -388,16 +455,21 @@ release\moc_rakmessagehandler.cpp: C:\Qt\5.7\msvc2015_64\include\QtCore\QObject 
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QtEndian \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qendian.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QMap \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakNetTypes.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakNetDefines.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\Export.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\logger.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QTextStream \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\messageheaders.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\bytestream.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QtGlobal \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QByteArray \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QString \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakNetTypes.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakNetDefines.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\Export.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\logger.h \
 		MessageHandlers\rakmessagehandler.h \
 		C:\Qt\5.7\msvc2015_64\bin\moc.exe
-	C:\Qt\5.7\msvc2015_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2015_64/mkspecs/win32-msvc2015 -I"C:/Users/Andrew Stelter/Documents/Code/Side-Projects/LUServer" -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/LUServer/QtRakNet -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/LUServer/QtRakNet/RakNet3.25 -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/LUServer/QtRakNet/ConsoleThread -IC:/Qt/5.7/msvc2015_64/include -IC:/Qt/5.7/msvc2015_64/include/QtCore -I. MessageHandlers\rakmessagehandler.h -o release\moc_rakmessagehandler.cpp
+	C:\Qt\5.7\msvc2015_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2015_64/mkspecs/win32-msvc2015 -I"C:/Users/Andrew Stelter/Documents/Code/Side-Projects/NexusQt" -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet/RakNet3.25 -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet/ConsoleThread -IC:/Qt/5.7/msvc2015_64/include -IC:/Qt/5.7/msvc2015_64/include/QtNetwork -IC:/Qt/5.7/msvc2015_64/include/QtCore -I. MessageHandlers\rakmessagehandler.h -o release\moc_rakmessagehandler.cpp
 
-release\moc_luauthserverhandler.cpp: C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\MessageHandlers\rakmessagehandler.h \
+release\moc_luauthserverhandler.cpp: C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\MessageHandlers\rakmessagehandler.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs.h \
@@ -464,16 +536,21 @@ release\moc_luauthserverhandler.cpp: C:\Users\Andrew_Stelter\Documents\Code\Side
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QtEndian \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qendian.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QMap \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakNetTypes.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakNetDefines.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\Export.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\logger.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QTextStream \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\messageheaders.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\bytestream.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QtGlobal \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QByteArray \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QString \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakNetTypes.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakNetDefines.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\Export.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\logger.h \
 		MessageHandlers\luauthserverhandler.h \
 		C:\Qt\5.7\msvc2015_64\bin\moc.exe
-	C:\Qt\5.7\msvc2015_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2015_64/mkspecs/win32-msvc2015 -I"C:/Users/Andrew Stelter/Documents/Code/Side-Projects/LUServer" -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/LUServer/QtRakNet -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/LUServer/QtRakNet/RakNet3.25 -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/LUServer/QtRakNet/ConsoleThread -IC:/Qt/5.7/msvc2015_64/include -IC:/Qt/5.7/msvc2015_64/include/QtCore -I. MessageHandlers\luauthserverhandler.h -o release\moc_luauthserverhandler.cpp
+	C:\Qt\5.7\msvc2015_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2015_64/mkspecs/win32-msvc2015 -I"C:/Users/Andrew Stelter/Documents/Code/Side-Projects/NexusQt" -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet/RakNet3.25 -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet/ConsoleThread -IC:/Qt/5.7/msvc2015_64/include -IC:/Qt/5.7/msvc2015_64/include/QtNetwork -IC:/Qt/5.7/msvc2015_64/include/QtCore -I. MessageHandlers\luauthserverhandler.h -o release\moc_luauthserverhandler.cpp
 
-release\moc_lugameserverhandler.cpp: C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\MessageHandlers\rakmessagehandler.h \
+release\moc_lugameserverhandler.cpp: C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\MessageHandlers\rakmessagehandler.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs.h \
@@ -540,14 +617,19 @@ release\moc_lugameserverhandler.cpp: C:\Users\Andrew_Stelter\Documents\Code\Side
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QtEndian \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qendian.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QMap \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakNetTypes.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakNetDefines.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\Export.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\logger.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QTextStream \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\messageheaders.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\bytestream.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QtGlobal \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QByteArray \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QString \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakNetTypes.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakNetDefines.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\Export.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\logger.h \
 		MessageHandlers\lugameserverhandler.h \
 		C:\Qt\5.7\msvc2015_64\bin\moc.exe
-	C:\Qt\5.7\msvc2015_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2015_64/mkspecs/win32-msvc2015 -I"C:/Users/Andrew Stelter/Documents/Code/Side-Projects/LUServer" -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/LUServer/QtRakNet -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/LUServer/QtRakNet/RakNet3.25 -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/LUServer/QtRakNet/ConsoleThread -IC:/Qt/5.7/msvc2015_64/include -IC:/Qt/5.7/msvc2015_64/include/QtCore -I. MessageHandlers\lugameserverhandler.h -o release\moc_lugameserverhandler.cpp
+	C:\Qt\5.7\msvc2015_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2015_64/mkspecs/win32-msvc2015 -I"C:/Users/Andrew Stelter/Documents/Code/Side-Projects/NexusQt" -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet/RakNet3.25 -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet/ConsoleThread -IC:/Qt/5.7/msvc2015_64/include -IC:/Qt/5.7/msvc2015_64/include/QtNetwork -IC:/Qt/5.7/msvc2015_64/include/QtCore -I. MessageHandlers\lugameserverhandler.h -o release\moc_lugameserverhandler.cpp
 
 release\moc_luserver.cpp: C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject.h \
@@ -597,7 +679,7 @@ release\moc_luserver.cpp: C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qvarlengtharray.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontainerfwd.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject_impl.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\MessageHandlers\rakmessagehandler.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\MessageHandlers\rakmessagehandler.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QDebug \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qdebug.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qhash.h \
@@ -616,12 +698,17 @@ release\moc_luserver.cpp: C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QtEndian \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qendian.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QMap \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakNetTypes.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakNetDefines.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\Export.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\logger.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QTextStream \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\QtRakPeer.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\messageheaders.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\bytestream.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QtGlobal \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QByteArray \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QString \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakNetTypes.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakNetDefines.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\Export.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\logger.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\QtRakPeer.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QThread \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qthread.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QMutex \
@@ -762,14 +849,65 @@ release\moc_luserver.cpp: C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
 		C:\Qt\5.7\msvc2015_64\include\QtConcurrent\qtconcurrentstoredfunctioncall.h \
 		C:\Qt\5.7\msvc2015_64\include\QtConcurrent\qtconcurrentversion.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QFuture \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\QString \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\MessageIdentifiers.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakPeerInterface.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\PacketPriority.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakMemoryOverride.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\MessageIdentifiers.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakPeerInterface.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\PacketPriority.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakMemoryOverride.h \
 		luserver.h \
 		C:\Qt\5.7\msvc2015_64\bin\moc.exe
-	C:\Qt\5.7\msvc2015_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2015_64/mkspecs/win32-msvc2015 -I"C:/Users/Andrew Stelter/Documents/Code/Side-Projects/LUServer" -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/LUServer/QtRakNet -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/LUServer/QtRakNet/RakNet3.25 -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/LUServer/QtRakNet/ConsoleThread -IC:/Qt/5.7/msvc2015_64/include -IC:/Qt/5.7/msvc2015_64/include/QtCore -I. luserver.h -o release\moc_luserver.cpp
+	C:\Qt\5.7\msvc2015_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2015_64/mkspecs/win32-msvc2015 -I"C:/Users/Andrew Stelter/Documents/Code/Side-Projects/NexusQt" -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet/RakNet3.25 -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet/ConsoleThread -IC:/Qt/5.7/msvc2015_64/include -IC:/Qt/5.7/msvc2015_64/include/QtNetwork -IC:/Qt/5.7/msvc2015_64/include/QtCore -I. luserver.h -o release\moc_luserver.cpp
+
+release\moc_gamelogic.cpp: C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qnamespace.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qglobal.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qconfig.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qfeatures.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsystemdetection.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qprocessordetection.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcompilerdetection.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qtypeinfo.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qtypetraits.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qisenum.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsysinfo.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qlogging.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qflags.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qbasicatomic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_bootstrap.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qgenericatomic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_msvc.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qglobalstatic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qmutex.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qnumeric.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qversiontagging.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstring.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qchar.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qbytearray.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qrefcount.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qarraydata.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringbuilder.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qlist.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qalgorithms.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qiterator.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qhashfunctions.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qpair.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qbytearraylist.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringlist.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qregexp.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringmatcher.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcoreevent.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qscopedpointer.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qmetatype.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qvarlengtharray.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontainerfwd.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject_impl.h \
+		GameLogic\gamelogic.h \
+		C:\Qt\5.7\msvc2015_64\bin\moc.exe
+	C:\Qt\5.7\msvc2015_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1900 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2015_64/mkspecs/win32-msvc2015 -I"C:/Users/Andrew Stelter/Documents/Code/Side-Projects/NexusQt" -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet/RakNet3.25 -IC:/Users/Andrew_Stelter/Documents/Code/Side-Projects/NexusQt/QtRakNet/ConsoleThread -IC:/Qt/5.7/msvc2015_64/include -IC:/Qt/5.7/msvc2015_64/include/QtNetwork -IC:/Qt/5.7/msvc2015_64/include/QtCore -I. GameLogic\gamelogic.h -o release\moc_gamelogic.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -853,7 +991,7 @@ release\main.obj: main.cpp C:\Qt\5.7\msvc2015_64\include\QtCore\QCoreApplication
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QTimer \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qtimer.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qbasictimer.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\ConsoleThread\consolereaderthread.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\ConsoleThread\consolereaderthread.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QString \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QTextStream \
@@ -991,129 +1129,36 @@ release\main.obj: main.cpp C:\Qt\5.7\msvc2015_64\include\QtCore\QCoreApplication
 		C:\Qt\5.7\msvc2015_64\include\QtConcurrent\qtconcurrentrunbase.h \
 		C:\Qt\5.7\msvc2015_64\include\QtConcurrent\qtconcurrentstoredfunctioncall.h \
 		C:\Qt\5.7\msvc2015_64\include\QtConcurrent\qtconcurrentversion.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\DataBrokers\databroker.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\DataBrokers\filebroker.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\MessageHandlers\lugameserverhandler.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\MessageHandlers\rakmessagehandler.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\DataBrokers\databroker.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QtGlobal \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\QHostAddress \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\qhostaddress.h \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\qabstractsocket.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\useraccounts.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\DataBrokers\filebroker.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\MessageHandlers\lugameserverhandler.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\MessageHandlers\rakmessagehandler.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QtEndian \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QMap \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakNetTypes.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakNetDefines.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\Export.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\logger.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\MessageHandlers\luauthserverhandler.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\luserver.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\QtRakPeer.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\messageheaders.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\bytestream.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QByteArray \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakNetTypes.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakNetDefines.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\Export.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\logger.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\MessageHandlers\luauthserverhandler.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\luserver.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\QtRakPeer.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QThread \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QFutureWatcher \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QFuture \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\MessageIdentifiers.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakPeerInterface.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\PacketPriority.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakMemoryOverride.h
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\MessageIdentifiers.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakPeerInterface.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\PacketPriority.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakMemoryOverride.h
 
-release\databroker.obj: DataBrokers\databroker.cpp C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\DataBrokers\databroker.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qnamespace.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qglobal.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qconfig.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qfeatures.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qsystemdetection.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qprocessordetection.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qcompilerdetection.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qtypeinfo.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qtypetraits.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qisenum.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qsysinfo.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qlogging.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qflags.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qbasicatomic.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_bootstrap.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qgenericatomic.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_cxx11.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_msvc.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qglobalstatic.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qmutex.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qnumeric.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qversiontagging.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs_impl.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qstring.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qchar.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qbytearray.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qrefcount.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qarraydata.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringbuilder.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qlist.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qalgorithms.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qiterator.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qhashfunctions.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qpair.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qbytearraylist.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringlist.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qregexp.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringmatcher.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qcoreevent.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qscopedpointer.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qmetatype.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qvarlengtharray.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontainerfwd.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject_impl.h
-
-release\filebroker.obj: DataBrokers\filebroker.cpp C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\DataBrokers\filebroker.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\DataBrokers\databroker.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qnamespace.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qglobal.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qconfig.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qfeatures.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qsystemdetection.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qprocessordetection.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qcompilerdetection.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qtypeinfo.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qtypetraits.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qisenum.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qsysinfo.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qlogging.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qflags.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qbasicatomic.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_bootstrap.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qgenericatomic.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_cxx11.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_msvc.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qglobalstatic.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qmutex.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qnumeric.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qversiontagging.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs_impl.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qstring.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qchar.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qbytearray.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qrefcount.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qarraydata.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringbuilder.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qlist.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qalgorithms.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qiterator.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qhashfunctions.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qpair.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qbytearraylist.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringlist.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qregexp.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringmatcher.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qcoreevent.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qscopedpointer.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qmetatype.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qvarlengtharray.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontainerfwd.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject_impl.h
-
-release\rakmessagehandler.obj: MessageHandlers\rakmessagehandler.cpp C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\MessageHandlers\rakmessagehandler.h \
+release\databroker.obj: DataBrokers\databroker.cpp C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\DataBrokers\databroker.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs.h \
@@ -1162,12 +1207,15 @@ release\rakmessagehandler.obj: MessageHandlers\rakmessagehandler.cpp C:\Users\An
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qvarlengtharray.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontainerfwd.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject_impl.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\QDebug \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QtGlobal \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\QHostAddress \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\qhostaddress.h \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\qabstractsocket.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qiodevice.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qdebug.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qhash.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qmap.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qtextstream.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qiodevice.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qlocale.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qvariant.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qshareddata.h \
@@ -1177,18 +1225,167 @@ release\rakmessagehandler.obj: MessageHandlers\rakmessagehandler.cpp C:\Users\An
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontiguouscache.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qsharedpointer.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qsharedpointer_impl.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\useraccounts.h
+
+release\filebroker.obj: DataBrokers\filebroker.cpp C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\DataBrokers\filebroker.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\DataBrokers\databroker.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qnamespace.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qglobal.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qconfig.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qfeatures.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsystemdetection.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qprocessordetection.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcompilerdetection.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qtypeinfo.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qtypetraits.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qisenum.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsysinfo.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qlogging.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qflags.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qbasicatomic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_bootstrap.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qgenericatomic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_msvc.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qglobalstatic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qmutex.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qnumeric.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qversiontagging.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstring.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qchar.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qbytearray.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qrefcount.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qarraydata.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringbuilder.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qlist.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qalgorithms.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qiterator.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qhashfunctions.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qpair.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qbytearraylist.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringlist.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qregexp.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringmatcher.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcoreevent.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qscopedpointer.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qmetatype.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qvarlengtharray.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontainerfwd.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject_impl.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QtGlobal \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\QHostAddress \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\qhostaddress.h \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\qabstractsocket.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qiodevice.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qdebug.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qhash.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qmap.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qtextstream.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qlocale.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qvariant.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qshareddata.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qvector.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qpoint.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qset.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontiguouscache.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsharedpointer.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsharedpointer_impl.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\useraccounts.h
+
+release\rakmessagehandler.obj: MessageHandlers\rakmessagehandler.cpp C:\Qt\5.7\msvc2015_64\include\QtCore\QCoreApplication \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qglobal.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qconfig.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qfeatures.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsystemdetection.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qprocessordetection.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcompilerdetection.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qtypeinfo.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qtypetraits.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qisenum.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsysinfo.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qlogging.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qflags.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qbasicatomic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_bootstrap.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qgenericatomic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_msvc.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qglobalstatic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qmutex.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qnumeric.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qversiontagging.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstring.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qchar.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qbytearray.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qrefcount.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qnamespace.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qarraydata.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringbuilder.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qlist.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qalgorithms.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qiterator.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qhashfunctions.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qpair.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qbytearraylist.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringlist.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qregexp.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringmatcher.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcoreevent.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qscopedpointer.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qmetatype.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qvarlengtharray.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontainerfwd.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject_impl.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qeventloop.h \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\QHostAddress \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\qhostaddress.h \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\qabstractsocket.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qiodevice.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qdebug.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qhash.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qmap.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qtextstream.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qlocale.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qvariant.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qshareddata.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qvector.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qpoint.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qset.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontiguouscache.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsharedpointer.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsharedpointer_impl.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\MessageHandlers\rakmessagehandler.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QDebug \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QtEndian \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qendian.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QMap \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakNetTypes.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakNetDefines.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\Export.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\logger.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QTextStream \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\messageheaders.h
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\messageheaders.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\bytestream.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QtGlobal \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QByteArray \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QString \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakNetTypes.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakNetDefines.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\Export.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\logger.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\MessageIdentifiers.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\DataBrokers\databroker.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\useraccounts.h
 
-release\luauthserverhandler.obj: MessageHandlers\luauthserverhandler.cpp C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\MessageHandlers\luauthserverhandler.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\MessageHandlers\rakmessagehandler.h \
+release\luauthserverhandler.obj: MessageHandlers\luauthserverhandler.cpp C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\MessageHandlers\luauthserverhandler.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\MessageHandlers\rakmessagehandler.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs.h \
@@ -1255,88 +1452,27 @@ release\luauthserverhandler.obj: MessageHandlers\luauthserverhandler.cpp C:\User
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QtEndian \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qendian.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QMap \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakNetTypes.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakNetDefines.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\Export.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\logger.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\QTextStream
-
-release\lugameserverhandler.obj: MessageHandlers\lugameserverhandler.cpp C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\MessageHandlers\lugameserverhandler.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\MessageHandlers\rakmessagehandler.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qnamespace.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qglobal.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qconfig.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qfeatures.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qsystemdetection.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qprocessordetection.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qcompilerdetection.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qtypeinfo.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qtypetraits.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qisenum.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qsysinfo.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qlogging.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qflags.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qbasicatomic.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_bootstrap.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qgenericatomic.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_cxx11.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_msvc.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qglobalstatic.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qmutex.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qnumeric.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qversiontagging.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs_impl.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qstring.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qchar.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qbytearray.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qrefcount.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qarraydata.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringbuilder.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qlist.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qalgorithms.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qiterator.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qhashfunctions.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qpair.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qbytearraylist.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringlist.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qregexp.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringmatcher.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qcoreevent.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qscopedpointer.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qmetatype.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qvarlengtharray.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontainerfwd.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject_impl.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\QDebug \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qdebug.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qhash.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qmap.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qtextstream.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qiodevice.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qlocale.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qvariant.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qshareddata.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qvector.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qpoint.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qset.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontiguouscache.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qsharedpointer.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qsharedpointer_impl.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\QtEndian \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\qendian.h \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\QMap \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakNetTypes.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakNetDefines.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\Export.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\logger.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QTextStream \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\MessageIdentifiers.h
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\messageheaders.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\bytestream.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QtGlobal \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QByteArray \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QString \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakNetTypes.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakNetDefines.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\Export.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\logger.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\useraccounts.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\DataBrokers\databroker.h \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\QHostAddress \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\qhostaddress.h \
+		C:\Qt\5.7\msvc2015_64\include\QtNetwork\qabstractsocket.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\sha512.hh \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\MessageIdentifiers.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\GameLogic\gamelogic.h
 
-release\luserver.obj: luserver.cpp C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\luserver.h \
+release\lugameserverhandler.obj: MessageHandlers\lugameserverhandler.cpp C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\MessageHandlers\lugameserverhandler.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\MessageHandlers\rakmessagehandler.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs.h \
@@ -1385,7 +1521,6 @@ release\luserver.obj: luserver.cpp C:\Users\Andrew_Stelter\Documents\Code\Side-P
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qvarlengtharray.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontainerfwd.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject_impl.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\MessageHandlers\rakmessagehandler.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QDebug \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qdebug.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qhash.h \
@@ -1404,12 +1539,97 @@ release\luserver.obj: luserver.cpp C:\Users\Andrew_Stelter\Documents\Code\Side-P
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QtEndian \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qendian.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QMap \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakNetTypes.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakNetDefines.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\Export.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\logger.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QTextStream \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\QtRakPeer.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\messageheaders.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\bytestream.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QtGlobal \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QByteArray \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QString \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakNetTypes.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakNetDefines.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\Export.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\logger.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\MessageIdentifiers.h
+
+release\luserver.obj: luserver.cpp C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\luserver.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qnamespace.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qglobal.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qconfig.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qfeatures.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsystemdetection.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qprocessordetection.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcompilerdetection.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qtypeinfo.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qtypetraits.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qisenum.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsysinfo.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qlogging.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qflags.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qbasicatomic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_bootstrap.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qgenericatomic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_msvc.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qglobalstatic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qmutex.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qnumeric.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qversiontagging.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstring.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qchar.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qbytearray.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qrefcount.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qarraydata.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringbuilder.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qlist.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qalgorithms.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qiterator.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qhashfunctions.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qpair.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qbytearraylist.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringlist.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qregexp.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringmatcher.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcoreevent.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qscopedpointer.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qmetatype.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qvarlengtharray.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontainerfwd.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject_impl.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\MessageHandlers\rakmessagehandler.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QDebug \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qdebug.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qhash.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qmap.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qtextstream.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qiodevice.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qlocale.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qvariant.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qshareddata.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qvector.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qpoint.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qset.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontiguouscache.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsharedpointer.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsharedpointer_impl.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QtEndian \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qendian.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QMap \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QTextStream \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\messageheaders.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\bytestream.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QtGlobal \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QByteArray \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QString \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakNetTypes.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakNetDefines.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\Export.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\logger.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\QtRakPeer.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QThread \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qthread.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QMutex \
@@ -1550,13 +1770,12 @@ release\luserver.obj: luserver.cpp C:\Users\Andrew_Stelter\Documents\Code\Side-P
 		C:\Qt\5.7\msvc2015_64\include\QtConcurrent\qtconcurrentstoredfunctioncall.h \
 		C:\Qt\5.7\msvc2015_64\include\QtConcurrent\qtconcurrentversion.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QFuture \
-		C:\Qt\5.7\msvc2015_64\include\QtCore\QString \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\MessageIdentifiers.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakPeerInterface.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\PacketPriority.h \
-		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\QtRakNet\RakNet3.25\RakMemoryOverride.h
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\MessageIdentifiers.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakPeerInterface.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\PacketPriority.h \
+		C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\QtRakNet\RakNet3.25\RakMemoryOverride.h
 
-release\logger.obj: logger.cpp C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\LUServer\logger.h \
+release\logger.obj: logger.cpp C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\logger.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\QTextStream \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qtextstream.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qiodevice.h \
@@ -1620,6 +1839,56 @@ release\logger.obj: logger.cpp C:\Users\Andrew_Stelter\Documents\Code\Side-Proje
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qshareddata.h \
 		C:\Qt\5.7\msvc2015_64\include\QtCore\qsharedpointer_impl.h
 
+release\gamelogic.obj: GameLogic\gamelogic.cpp C:\Users\Andrew_Stelter\Documents\Code\Side-Projects\NexusQt\GameLogic\gamelogic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\QObject \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qnamespace.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qglobal.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qconfig.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qfeatures.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsystemdetection.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qprocessordetection.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcompilerdetection.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qtypeinfo.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qtypetraits.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qisenum.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qsysinfo.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qlogging.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qflags.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qbasicatomic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_bootstrap.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qgenericatomic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qatomic_msvc.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qglobalstatic.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qmutex.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qnumeric.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qversiontagging.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstring.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qchar.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qbytearray.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qrefcount.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qarraydata.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringbuilder.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qlist.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qalgorithms.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qiterator.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qhashfunctions.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qpair.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qbytearraylist.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringlist.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qregexp.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qstringmatcher.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcoreevent.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qscopedpointer.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qmetatype.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qvarlengtharray.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qcontainerfwd.h \
+		C:\Qt\5.7\msvc2015_64\include\QtCore\qobject_impl.h
+
 release\moc_databroker.obj: release\moc_databroker.cpp 
 
 release\moc_filebroker.obj: release\moc_filebroker.cpp 
@@ -1631,6 +1900,8 @@ release\moc_luauthserverhandler.obj: release\moc_luauthserverhandler.cpp
 release\moc_lugameserverhandler.obj: release\moc_lugameserverhandler.cpp 
 
 release\moc_luserver.obj: release\moc_luserver.cpp 
+
+release\moc_gamelogic.obj: release\moc_gamelogic.cpp 
 
 ####### Install
 
